@@ -15,8 +15,6 @@
     #terminal {
       padding: 20px;
       white-space: pre-wrap;
-      z-index: 1;
-      position: relative;
     }
     .glitch {
       color: red;
@@ -27,64 +25,6 @@
       50% { opacity: 0.2; }
       100% { opacity: 1; }
     }
-    .cursor-dot {
-      width: 8px;
-      height: 8px;
-      background: lime;
-      border-radius: 50%;
-      position: absolute;
-      pointer-events: none;
-      z-index: 2;
-      animation: trail 1s linear infinite;
-    }
-    @keyframes trail {
-      0% { transform: scale(1); opacity: 1; }
-      100% { transform: scale(2); opacity: 0; }
-    }
-    #corrupt-screen {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: black;
-      color: red;
-      font-size: 2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      z-index: 999;
-    }
-    #sans-figure {
-      display: none;
-      position: fixed;
-      bottom: 0;
-      right: 0;
-      width: 300px;
-      font-family: monospace;
-      color: cyan;
-      text-align: center;
-      z-index: 1000;
-      animation: glitch-appear 2s ease-in-out forwards;
-    }
-    @keyframes glitch-appear {
-      0% { opacity: 0; transform: translateY(100%); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    .ascii {
-      white-space: pre;
-      font-size: 10px;
-      color: cyan;
-    }
-    .sign {
-      color: yellow;
-      font-weight: bold;
-      background: #111;
-      padding: 5px;
-      margin-top: 10px;
-    }
   </style>
 </head>
 <body>
@@ -92,25 +32,9 @@
     <source src="https://freesound.org/data/previews/415/415209_5121236-lq.mp3" type="audio/mpeg">
   </audio>
   <div id="terminal"></div>
-  <div id="corrupt-screen">
-    SYSTEM FAILURE: MEMORY OVERLOAD<br>🛑 CONNECTION TERMINATED 🛑
-    <div id="sans-figure">
-      <div class="ascii">
-        .-""""-.
-       / -   -  \
-      |  o   o  |
-      |    ^    |
-      |  '\___/' |
-       \_______/
-      </div>
-      <div class="sign">HAHA ITS JUST A PRANK</div>
-    </div>
-  </div>
 
   <script>
     const terminal = document.getElementById("terminal");
-    const corruptScreen = document.getElementById("corrupt-screen");
-    const sansFigure = document.getElementById("sans-figure");
 
     const userData = [
       `OS: ${navigator.platform}`,
@@ -134,8 +58,6 @@
       "SURVEILLANCE DETECTED",
       "WARNING: Unauthorized access detected",
       "Searching personal documents...",
-      "Injecting Trojan: glitch_protocol.js",
-      "Triggering exploit through meta-channel..."
     ];
 
     let i = 0;
@@ -171,25 +93,9 @@
           }, 400 * idx);
         });
       }, 8000);
-
-      setTimeout(() => {
-        corruptScreen.style.display = "flex";
-        sansFigure.style.display = "block";
-      }, 18000);
     }
 
     window.onload = runSimulation;
-
-    // Mouse trail visual
-    document.addEventListener("mousemove", e => {
-      const dot = document.createElement("div");
-      dot.classList.add("cursor-dot");
-      dot.style.left = `${e.pageX}px`;
-      dot.style.top = `${e.pageY}px`;
-      document.body.appendChild(dot);
-      setTimeout(() => dot.remove(), 1000);
-    });
   </script>
 </body>
 </html>
-
